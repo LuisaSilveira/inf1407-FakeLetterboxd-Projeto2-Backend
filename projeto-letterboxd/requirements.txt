@@ -1,0 +1,9 @@
+django                           # framework web
+djangorestframework              # para criar APIs RESTful
+django-cors-headers              # para lidar com CORS (frontend separado)
+pyyaml                           # necessário para serialização YAML
+drf-spectacular                  # para documentação Swagger/OpenAPI
+djangorestframework-simplejwt    # autenticação por JWT
+python-dotenv                    # para carregar variáveis de ambiente do .env
+Pillow                           # para campos de imagem (foto de perfil)
+requests                         # para chamadas à API OMDB
