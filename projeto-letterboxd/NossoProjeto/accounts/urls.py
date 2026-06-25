@@ -1,5 +1,6 @@
 """
 URLs do app accounts.
+Identico ao accounts/urls.py do professor — slide 16.
 """
 
 from django.urls import path
@@ -8,19 +9,19 @@ from accounts import views
 app_name = 'accounts'
 
 urlpatterns = [
+    # whoami — conforme slide 16
     path('whoami/', views.whoami, name='whoami'),
 
-    # Cadastro — equivalente ao cadastro() do projeto 1 (publico)
+    # Cadastro — endpoint publico
     path('cadastro/', views.CadastroView.as_view(), name='cadastro'),
 
-    # Perfil — equivalente ao perfil() e MeuUpdateView do projeto 1
-    # GET: ver perfil | PATCH: atualizar | DELETE: deletar conta
+    # Perfil — GET ver | PATCH atualizar | DELETE deletar conta
     path('perfil/', views.PerfilView.as_view(), name='perfil'),
 
-    # Troca de senha — usuario autenticado
-    path('troca-senha/', views.TrocaSenhaView.as_view(), name='troca-senha'),
+    # Troca de senha — identico ao professor (slide 16)
+    path('change-password/', views.ChangePasswordView.as_view(), name='change_password'),
 
-    # Recuperacao de senha — equivalente ao PasswordResetView do projeto 1
+    # Recuperacao de senha — identico ao professor (slide 16)
     # POST: solicitar codigo | PUT: redefinir com codigo
-    path('password-reset/', views.RecuperacaoSenhaView.as_view(), name='password-reset'),
+    path('password-reset/', views.PasswordResetView.as_view(), name='password_reset'),
 ]
