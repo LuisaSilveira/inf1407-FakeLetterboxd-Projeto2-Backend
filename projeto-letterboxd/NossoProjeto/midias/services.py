@@ -3,6 +3,7 @@ Servico de integracao com a API OMDB.
 """
 
 import requests
+from decouple import config
 from django.conf import settings
 from typing import Optional, Dict, List
 
@@ -14,6 +15,7 @@ class OMDBService:
     """
 
     BASE_URL = 'http://www.omdbapi.com/'
+    API_KEY = config('OMDB_API_KEY')
 
     GENERO_MAP = {
         'Action': 'acao',
@@ -39,7 +41,7 @@ class OMDBService:
         :rtype: dict or None
         """
         params = {
-            'apikey': settings.OMDB_API_KEY,
+            'apikey': cls.API_KEY,
             't': titulo,
         }
         response = requests.get(cls.BASE_URL, params=params, timeout=5)
@@ -60,7 +62,7 @@ class OMDBService:
         :rtype: list
         """
         params = {
-            'apikey': settings.OMDB_API_KEY,
+            'apikey': cls.API_KEY,
             's': termo,
         }
         response = requests.get(cls.BASE_URL, params=params, timeout=5)
@@ -86,7 +88,7 @@ class OMDBService:
         :rtype: dict or None
         """
         params = {
-            'apikey': settings.OMDB_API_KEY,
+            'apikey': cls.API_KEY,
             'i': imdb_id,
         }
         response = requests.get(cls.BASE_URL, params=params, timeout=5)

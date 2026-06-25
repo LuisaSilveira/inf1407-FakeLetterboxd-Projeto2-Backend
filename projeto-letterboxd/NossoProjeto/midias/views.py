@@ -78,7 +78,7 @@ class AvaliacoesView(APIView):
         :return: lista de avaliacoes em formato JSON
         :rtype: JSON
         """
-        avaliacoes = Avaliacao.objects.select_related('usuario', 'midia').all()
+        avaliacoes = Avaliacao.objects.select_related('pessoa', 'midia').all()
 
         busca_titulo = request.query_params.get('busca_titulo', '').strip()
         if busca_titulo:
@@ -90,19 +90,19 @@ class AvaliacoesView(APIView):
 
         genero_midia = request.query_params.get('genero_midia', '')
         if genero_midia:
-            avaliacoes = avaliacoes.filter(midia__genero=genero_midia)
+            avaliacoes = avaliacoes.filter(midia__generos=genero_midia)
 
         busca_pessoa = request.query_params.get('busca_pessoa', '').strip()
         if busca_pessoa:
-            avaliacoes = avaliacoes.filter(usuario__username__icontains=busca_pessoa)
+            avaliacoes = avaliacoes.filter(pessoa__username__icontains=busca_pessoa)
 
         ordem_nota = request.query_params.get('ordem_nota', '')
         if ordem_nota == 'maior':
-            avaliacoes = avaliacoes.order_by('-nota', '-criado_em')
+            avaliacoes = avaliacoes.order_by('-nota', '-dt_avaliacao')
         elif ordem_nota == 'menor':
-            avaliacoes = avaliacoes.order_by('nota', '-criado_em')
+            avaliacoes = avaliacoes.order_by('nota', '-dt_avaliacao')
         else:
-            avaliacoes = avaliacoes.order_by('-criado_em')
+            avaliacoes = avaliacoes.order_by('-dt_avaliacao')
 
         serializer = AvaliacaoSerializer(avaliacoes, many=True)
         return Response(serializer.data)
@@ -133,7 +133,7 @@ class AvaliacoesView(APIView):
         """
         serializer = AvaliacaoSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(usuario=request.user)
+            serializer.save(pessoa=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -158,7 +158,7 @@ class AvaliacaoView(APIView):
         :return: instancia de Avaliacao ou None
         """
         try:
-            return Avaliacao.objects.select_related('usuario', 'midia').get(pk=pk)
+            return Avaliacao.objects.select_related('pessoa', 'midia').get(pk=pk)
         except Avaliacao.DoesNotExist:
             return None
 
@@ -229,7 +229,7 @@ class AvaliacaoView(APIView):
             )
 
         # Apenas o autor pode editar — igual ao projeto 1
-        if avaliacao.usuario != request.user:
+        if avaliacao.pessoa != request.user:
             return Response(
                 {'detail': 'Voce nao tem permissao para editar esta avaliacao.'},
                 status=status.HTTP_403_FORBIDDEN
@@ -277,7 +277,7 @@ class AvaliacaoView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        if avaliacao.usuario != request.user:
+        if avaliacao.pessoa != request.user:
             return Response(
                 {'detail': 'Voce nao tem permissao para deletar esta avaliacao.'},
                 status=status.HTTP_403_FORBIDDEN
@@ -457,15 +457,15 @@ class PessoaProfileView(APIView):
 
         genero_midia = request.query_params.get('genero_midia', '')
         if genero_midia:
-            avaliacoes = avaliacoes.filter(midia__genero=genero_midia)
+            avaliacoes = avaliacoes.filter(midia__generos=genero_midia)
 
         ordem_nota = request.query_params.get('ordem_nota', '')
         if ordem_nota == 'maior':
-            avaliacoes = avaliacoes.order_by('-nota', '-criado_em')
+            avaliacoes = avaliacoes.order_by('-nota', '-dt_avaliacao')
         elif ordem_nota == 'menor':
-            avaliacoes = avaliacoes.order_by('nota', '-criado_em')
+            avaliacoes = avaliacoes.order_by('nota', '-dt_avaliacao')
         else:
-            avaliacoes = avaliacoes.order_by('-criado_em')
+            avaliacoes = avaliacoes.order_by('-dt_avaliacao')
 
         return Response({
             'usuario': PerfilSerializer(pessoa).data,
