@@ -4,7 +4,7 @@ Operacoes sobre o mesmo recurso ficam na mesma URL
 """
 
 from django.urls import path
-from midia import views
+from midias import views
 
 app_name = 'midias'
 

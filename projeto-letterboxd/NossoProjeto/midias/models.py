@@ -1,5 +1,5 @@
 """
-Modelos do app midia.
+Modelos do app midias.
 """
 
 from django.db import models

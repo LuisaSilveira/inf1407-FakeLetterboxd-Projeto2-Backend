@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class MidiaConfig(AppConfig):
-    name = "midia"
+class MidiasConfig(AppConfig):
+    name = "midias"
