@@ -1,3 +1,5 @@
 from django.contrib import admin
+from midia.models import Midia, Avaliacao
 
-# Register your models here.
+admin.site.register(Midia)
+admin.site.register(Avaliacao)
