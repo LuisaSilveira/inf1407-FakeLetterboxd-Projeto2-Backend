@@ -11,6 +11,9 @@ from midias.models import Midia, Avaliacao
 from midias.serializers import MidiaSerializer, AvaliacaoSerializer
 from midias.services import OMDBService
 
+from django.contrib.auth import get_user_model
+from accounts.serializers import PerfilSerializer
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # AVALIACOES
@@ -29,6 +32,7 @@ class AvaliacoesView(APIView):
 
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    auth = [{'bearerAuth': []}] 
 
     @extend_schema(
         summary='Lista todas as avaliacoes',
@@ -149,6 +153,7 @@ class AvaliacaoView(APIView):
 
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    auth = [{'bearerAuth': []}] 
 
     def _get_avaliacao(self, pk):
         """
@@ -302,6 +307,7 @@ class BuscaOMDBView(APIView):
 
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    auth = [{'bearerAuth': []}] 
 
     @extend_schema(
         summary='Buscar midia na OMDB',
@@ -381,6 +387,7 @@ class PessoaProfileView(APIView):
 
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    auth = [{'bearerAuth': []}] 
 
     @extend_schema(
         summary='Perfil de um usuario e suas avaliacoes',
@@ -432,8 +439,7 @@ class PessoaProfileView(APIView):
         :return: dados do usuario e suas avaliacoes
         :rtype: JSON
         """
-        from django.contrib.auth import get_user_model
-        from accounts.serializers import PerfilSerializer
+
 
         User = get_user_model()
 

@@ -32,7 +32,19 @@ User = get_user_model()
 # WHOAMI 
 # ─────────────────────────────────────────────────────────────────────────────
 
+@extend_schema(
+    summary='Retorna dados do usuario autenticado',
+    description='Usado pelo frontend para saber quem esta logado. Requer autenticacao.',
+    tags=['accounts'],
+    responses={
+        200: OpenApiExample('Sucesso', value={'id': 1, 'username': 'joao'}),
+        401: OpenApiExample('Nao autorizado',
+                            value={'detail': 'Authentication credentials were not provided.'}),
+    },
+)
+
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def whoami(request):
     '''
     Retorna os dados do usuario autenticado.
