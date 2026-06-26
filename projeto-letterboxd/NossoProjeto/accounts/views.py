@@ -1,6 +1,5 @@
 """
 Views do app accounts.
-Segue exatamente o padrao do professor — slide 16.
 """
 
 import secrets
@@ -30,14 +29,13 @@ User = get_user_model()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# WHOAMI — conforme slide 16 do professor
+# WHOAMI 
 # ─────────────────────────────────────────────────────────────────────────────
 
 @api_view(['GET'])
 def whoami(request):
     '''
     Retorna os dados do usuario autenticado.
-    Conforme slide 16 do professor.
 
     :param request: objeto da requisicao HTTP
     :return: id e username do usuario autenticado
@@ -173,13 +171,12 @@ class PerfilView(APIView):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# TROCA DE SENHA — identico ao ChangePasswordView do professor — slide 16
+# TROCA DE SENHA 
 # ─────────────────────────────────────────────────────────────────────────────
 
 class ChangePasswordView(APIView):
     """
     Permite que o usuario autenticado altere sua senha.
-    Identico ao ChangePasswordView do professor — slide 16.
     """
 
     authentication_classes = [JWTAuthentication]
@@ -210,7 +207,6 @@ class ChangePasswordView(APIView):
         Permite que o usuario autenticado altere sua senha.
         Espera receber a senha antiga em 'old_password'
         e a nova senha em 'new_password' no corpo da requisicao.
-        Identico ao ChangePasswordView do professor — slide 16.
 
         :param request: objeto da requisicao HTTP com old_password e new_password
         :return: mensagem de sucesso ou erro
@@ -236,14 +232,13 @@ class ChangePasswordView(APIView):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# RECUPERACAO DE SENHA — identico ao PasswordResetView do professor — slide 16
-# Usa templates de email HTML e TXT como o professor mostrou
+# RECUPERACAO DE SENHA 
+# Usa templates de email HTML e TXT 
 # ─────────────────────────────────────────────────────────────────────────────
 
 class PasswordResetView(APIView):
     '''
     View para lidar com requisicoes de redefinicao de senha.
-    Identico ao PasswordResetView do professor — slide 16.
     POST: solicita o codigo de recuperacao.
     PUT: redefine a senha com o codigo.
     '''
@@ -271,7 +266,6 @@ class PasswordResetView(APIView):
         '''
         Lida com a solicitacao de redefinicao de senha.
         Gera um codigo aleatorio e envia por e-mail.
-        Identico ao PasswordResetView.post() do professor — slide 16.
 
         :param request: objeto da requisicao HTTP com o campo email
         :return: mensagem de confirmacao
@@ -288,11 +282,11 @@ class PasswordResetView(APIView):
                     status=status.HTTP_404_NOT_FOUND
                 )
 
-            # Cria codigo de redefinicao e salva no banco — identico ao professor
+            # Cria codigo de redefinicao e salva no banco 
             code = secrets.token_urlsafe(16)
             PasswordResetCode.objects.create(user=user, code=code)
 
-            # Monta o contexto do email — identico ao professor
+            # Monta o contexto do email 
             context = {
                 'current_user': user.first_name + ' ' + user.last_name if user.last_name else user.first_name,
                 'username': user.username,
@@ -300,11 +294,11 @@ class PasswordResetView(APIView):
                 'token': code,
             }
 
-            # Renderiza os templates de email — identico ao professor
+            # Renderiza os templates de email 
             email_html_message = render_to_string('email/password_reset_email.html', context)
             email_plaintext_message = render_to_string('email/password_reset_email.txt', context)
 
-            # Envia o email — identico ao professor
+            # Envia o email 
             msg = EmailMultiAlternatives(
                 'Redefinicao de senha — FakeLetterboxd',
                 email_plaintext_message,
@@ -314,13 +308,14 @@ class PasswordResetView(APIView):
             msg.attach_alternative(email_html_message, 'text/html')
             msg.send()
 
-        return Response(
-            {
-                'message': 'E-mail de redefinicao de senha enviado com sucesso',
-                'token': str(code)
-            },
-            status=status.HTTP_200_OK
-        )
+            return Response(
+                {
+                    'message': 'E-mail de redefinicao de senha enviado com sucesso',
+                    'token': str(code)
+                },
+                status=status.HTTP_200_OK
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @extend_schema(
         summary='Confirmar redefinicao de senha',
@@ -345,7 +340,6 @@ class PasswordResetView(APIView):
     def put(self, request):
         '''
         Lida com a confirmacao da redefinicao de senha.
-        Identico ao PasswordResetView.put() do professor — slide 16.
 
         :param request: objeto da requisicao HTTP com code e new_password
         :return: mensagem de sucesso ou erro

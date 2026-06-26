@@ -1,6 +1,5 @@
 """
 Serializers do app accounts.
-Identico ao accounts/serializers.py do professor — slide 16.
 """
 
 from django.contrib.auth.password_validation import validate_password
@@ -13,7 +12,6 @@ User = get_user_model()
 class ChangePasswordSerializer(serializers.Serializer):
     '''
     Serializer for password change endpoint.
-    Identico ao do professor — slide 16.
     '''
 
     old_password = serializers.CharField(required=True)
@@ -30,7 +28,6 @@ class ChangePasswordSerializer(serializers.Serializer):
 class ResetPasswordRequestSerializer(serializers.Serializer):
     '''
     Serializer for requesting a password reset.
-    Identico ao do professor — slide 16.
     '''
 
     email = serializers.EmailField(required=True)
@@ -39,7 +36,6 @@ class ResetPasswordRequestSerializer(serializers.Serializer):
 class ResetPasswordConfirmSerializer(serializers.Serializer):
     '''
     Serializer for confirming a password reset.
-    Identico ao do professor — slide 16.
     '''
 
     code = serializers.CharField(required=True)
