@@ -10,7 +10,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Midia(models.Model):
     """
     Representa um filme ou serie cadastrado no sistema.
-    Identico ao modelo Midia do projeto 1.
 
     :param titulo: titulo da midia
     :param tipo: 'filme' ou 'serie'
@@ -40,7 +39,7 @@ class Midia(models.Model):
         ('documentario', 'Documentario'),
     ]
 
-    # Campos basicos — identicos ao projeto 1
+    # Campos basicos
     titulo = models.CharField(max_length=200)
     tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
     sinopse = models.TextField(blank=True)
@@ -48,7 +47,7 @@ class Midia(models.Model):
     diretor = models.CharField(max_length=100, blank=True)
     generos = models.CharField(max_length=50, choices=GENERO_CHOICES, default='drama')
 
-    # Campos OMDB — identicos ao projeto 1
+    # Campos OMDB
     imdb_id = models.CharField(max_length=20, unique=True, blank=True, null=True)
     poster_url = models.URLField(max_length=500, blank=True)
     duracao = models.CharField(max_length=50, blank=True)
@@ -68,7 +67,6 @@ class Midia(models.Model):
 class Avaliacao(models.Model):
     """
     Avaliacao de uma midia feita por um usuario.
-    Identico ao modelo Avaliacao do projeto 1.
     Um usuario so pode avaliar uma midia uma vez (unique_together).
 
     :param pessoa: usuario que fez a avaliacao
@@ -80,7 +78,7 @@ class Avaliacao(models.Model):
     :param assistido_em: data em que assistiu
     """
 
-    # Campo chamado 'pessoa' — identico ao projeto 1
+    # Campo chamado 'pessoa'
     pessoa = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

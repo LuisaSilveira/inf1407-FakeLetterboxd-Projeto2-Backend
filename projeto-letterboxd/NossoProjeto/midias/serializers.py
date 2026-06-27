@@ -55,7 +55,7 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
     """
     Serializer para o modelo Avaliacao.
     Inclui dados resumidos da midia e do usuario para facilitar o frontend.
-    Usa o campo 'pessoa' identico ao projeto 1.
+    Usa o campo 'pessoa'.
     """
 
     # Campos de leitura para exibir nomes em vez de IDs

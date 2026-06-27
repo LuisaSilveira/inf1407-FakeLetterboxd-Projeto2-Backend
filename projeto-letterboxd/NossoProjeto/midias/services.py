@@ -11,7 +11,6 @@ from typing import Optional, Dict, List
 class OMDBService:
     """
     Wrapper para a API OMDB.
-    Identico ao do projeto 1.
     """
 
     BASE_URL = 'http://www.omdbapi.com/'
@@ -34,7 +33,6 @@ class OMDBService:
     def buscar_por_titulo(cls, titulo: str) -> Optional[Dict]:
         """
         Busca uma midia especifica por titulo.
-        Identico ao do projeto 1.
 
         :param titulo: titulo da midia a buscar
         :return: dados formatados da midia ou None
@@ -55,7 +53,6 @@ class OMDBService:
     def buscar_multiplos(cls, termo: str) -> List[Dict]:
         """
         Busca multiplas midias por termo de pesquisa.
-        Identico ao do projeto 1.
 
         :param termo: termo de busca
         :return: lista de resultados formatados
@@ -81,7 +78,6 @@ class OMDBService:
     def buscar_por_imdb_id(cls, imdb_id: str) -> Optional[Dict]:
         """
         Busca uma midia por ID do IMDB.
-        Identico ao do projeto 1.
 
         :param imdb_id: ID do IMDB (ex: 'tt0111161')
         :return: dados formatados da midia ou None
@@ -129,7 +125,6 @@ class OMDBService:
     def _formatar_dados(cls, data: Dict) -> Dict:
         """
         Formata os dados brutos da API OMDB.
-        Identico ao do projeto 1.
 
         :param data: resposta bruta da API OMDB
         :return: dicionario formatado

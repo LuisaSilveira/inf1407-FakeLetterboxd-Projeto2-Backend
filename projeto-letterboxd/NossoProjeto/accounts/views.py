@@ -67,7 +67,6 @@ def whoami(request):
 class CadastroView(APIView):
     """
     Endpoint publico para criar uma nova conta.
-    Equivalente ao cadastro() do projeto 1.
     Nao exige autenticacao.
     """
 
@@ -88,7 +87,6 @@ class CadastroView(APIView):
     def post(self, request):
         '''
         Cria um novo usuario.
-        Equivalente ao cadastro() do projeto 1.
 
         :param request: objeto da requisicao HTTP com os dados do novo usuario
         :return: dados do usuario criado ou erros de validacao
@@ -105,7 +103,7 @@ class CadastroView(APIView):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PERFIL — equivalente ao perfil() e MeuUpdateView do projeto 1
+# PERFIL
 # ─────────────────────────────────────────────────────────────────────────────
 
 class PerfilView(APIView):
