@@ -36,7 +36,11 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:8000', 
+    'http://localhost:8000'
+]
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -52,11 +56,13 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     "accounts",
     "midias",
+    "corsheaders",
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -65,6 +71,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 
 ROOT_URLCONF = "NossoProjeto.urls"
 
