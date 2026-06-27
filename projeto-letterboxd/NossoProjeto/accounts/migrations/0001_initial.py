@@ -102,12 +102,6 @@ class Migration(migrations.Migration):
                 ("data_nascimento", models.DateField(blank=True, null=True)),
                 ("bio", models.TextField(blank=True)),
                 (
-                    "foto_perfil",
-                    models.ImageField(
-                        blank=True, null=True, upload_to="accounts/img/perfil-fotos/"
-                    ),
-                ),
-                (
                     "groups",
                     models.ManyToManyField(
                         blank=True,

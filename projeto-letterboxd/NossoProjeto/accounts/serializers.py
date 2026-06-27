@@ -107,6 +107,6 @@ class PerfilSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name',
-            'bio', 'foto_perfil', 'data_nascimento', 'date_joined',
+            'bio', 'data_nascimento', 'date_joined',
         ]
         read_only_fields = ['id', 'username', 'date_joined']
