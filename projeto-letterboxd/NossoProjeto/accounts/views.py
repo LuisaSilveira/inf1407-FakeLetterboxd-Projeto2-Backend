@@ -307,7 +307,6 @@ class PasswordResetView(APIView):
             }
 
             # Renderiza os templates de email 
-            email_html_message = render_to_string('email/password_reset_email.html', context)
             email_plaintext_message = render_to_string('email/password_reset_email.txt', context)
 
             # Envia o email 
@@ -317,7 +316,6 @@ class PasswordResetView(APIView):
                 'noreply@fakeletterboxd.com',
                 [user.email]
             )
-            msg.attach_alternative(email_html_message, 'text/html')
             msg.send()
 
             return Response(
