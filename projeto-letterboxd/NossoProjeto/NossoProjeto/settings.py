@@ -41,7 +41,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'https://*.app.github.dev',
     'https://luisas4.pythonanywhere.com',
-    'https://fake-letterboxd.vercel.app',
+    'https://fake-letterboxd-two.vercel.app',
 
 ]
 CORS_ALLOW_ALL_ORIGINS = True
