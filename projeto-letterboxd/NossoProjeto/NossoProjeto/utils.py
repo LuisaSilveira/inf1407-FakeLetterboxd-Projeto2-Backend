@@ -85,6 +85,12 @@ def detectar_ambiente() -> str:
         pass
 
     # ------------------------------------------------------
+    # PythonAnywhere
+    # ------------------------------------------------------
+    if os.getenv("PYTHONANYWHERE_SITE"):
+        return "PYTHONANYWHERE"
+
+    # ------------------------------------------------------
     # Padrão
     # ------------------------------------------------------
     return "LOCAL"
@@ -142,6 +148,9 @@ def detectar_dominio() -> str:
 
     if AMBIENTE == "AWS":
         return os.getenv("DJANGO_DOMAIN", "meusite.com.br")
+    
+    if AMBIENTE == "PYTHONANYWHERE":
+        return os.getenv("PYTHONANYWHERE_SITE")
 
     return f"localhost:{PORTA}"
 
@@ -165,6 +174,7 @@ def detectar_protocolo() -> str:
         "HEROKU",
         "RAILWAY",
         "RENDER",
+        "PYTHONANYWHERE",
     ]:
         return "https"
 

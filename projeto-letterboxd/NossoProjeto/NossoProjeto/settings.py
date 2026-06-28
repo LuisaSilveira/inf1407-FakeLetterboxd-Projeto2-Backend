@@ -39,7 +39,10 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'https://localhost:8000', 
     'http://localhost:8000',
-    'https://*.app.github.dev'
+    'https://*.app.github.dev',
+    'https://luisas4.pythonanywhere.com',
+    'https://fake-letterboxd.vercel.app',
+
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
@@ -172,6 +175,10 @@ REST_FRAMEWORK = {
 }
 
 if AMBIENTE == "CODESPACE":
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https',)
+    USE_X_FORWARDED_HOST = True
+    CS_DOMAIN = DOMINIO
+elif AMBIENTE == "PYTHONANYWHERE": 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https',)
     USE_X_FORWARDED_HOST = True
     CS_DOMAIN = DOMINIO
