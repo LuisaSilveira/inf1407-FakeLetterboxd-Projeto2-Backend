@@ -284,9 +284,8 @@ class PasswordResetView(APIView):
         serializer = ResetPasswordRequestSerializer(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data['email']
-            try:
-                user = User.objects.get(email=email)
-            except User.DoesNotExist:
+            user = User.objects.filter(email=email).first()
+            if not user:
                 return Response(
                     {'message': 'Nenhum usuario encontrado com este e-mail'},
                     status=status.HTTP_404_NOT_FOUND

@@ -14,6 +14,7 @@ class CustomUser(AbstractUser):
     :param bio: texto de apresentacao do usuario
     """
 
+    email = models.EmailField(unique=True)
     data_nascimento = models.DateField(null=True, blank=True)
     bio = models.TextField(blank=True)
 

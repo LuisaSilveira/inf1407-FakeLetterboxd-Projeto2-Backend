@@ -54,28 +54,24 @@ class MidiaSerializer(serializers.ModelSerializer):
 class AvaliacaoSerializer(serializers.ModelSerializer):
     """
     Serializer para o modelo Avaliacao.
-    Inclui dados resumidos da midia e do usuario para facilitar o frontend.
+    Inclui dados completos da midia e do usuario para facilitar o frontend.
     Usa o campo 'pessoa'.
     """
 
-    # Campos de leitura para exibir nomes em vez de IDs
     username = serializers.CharField(source='pessoa.username', read_only=True)
-    titulo_midia = serializers.CharField(source='midia.titulo', read_only=True)
-    poster_midia = serializers.CharField(source='midia.poster_url', read_only=True)
-    tipo_midia = serializers.CharField(source='midia.tipo', read_only=True)
-    genero_midia = serializers.CharField(source='midia.generos', read_only=True)
+    midia_detalhes = MidiaSerializer(source='midia', read_only=True)
 
     class Meta:
         model = Avaliacao
         fields = [
             'id', 'pessoa', 'username',
-            'midia', 'titulo_midia', 'poster_midia', 'tipo_midia', 'genero_midia',
+            'midia', 'midia_detalhes',
             'nota', 'comentario', 'assistido_em',
             'dt_avaliacao', 'dt_atualizacao',
         ]
         read_only_fields = [
             'id', 'pessoa', 'username',
-            'titulo_midia', 'poster_midia', 'tipo_midia', 'genero_midia',
+            'midia_detalhes',
             'dt_avaliacao', 'dt_atualizacao',
         ]
 
